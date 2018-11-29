@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1pt9r6v" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.16.2">
+  <bpmn:process id="meteo" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_13gjskh</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_13gjskh" sourceRef="StartEvent_1" targetRef="getInfosUT" />
+    <bpmn:sequenceFlow id="SequenceFlow_02b5tpy" sourceRef="getInfosUT" targetRef="getMeteo" />
+    <bpmn:serviceTask id="getMeteo" name="Get Meteo Info" camunda:type="external" camunda:topic="get-meteo">
+      <bpmn:incoming>SequenceFlow_02b5tpy</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_07czdm1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_07czdm1" sourceRef="getMeteo" targetRef="sendMeteo" />
+    <bpmn:serviceTask id="sendMeteo" name="Show Meteo Info" camunda:type="external" camunda:topic="send-meteo">
+      <bpmn:incoming>SequenceFlow_07czdm1</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0tk6gso</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent_1i8y6w1">
+      <bpmn:incoming>SequenceFlow_0tk6gso</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="getInfosUT" name="User Connection">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="postalCode" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_13gjskh</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_02b5tpy</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0tk6gso" sourceRef="sendMeteo" targetRef="EndEvent_1i8y6w1" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="meteo">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="192" y="278" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_13gjskh_di" bpmnElement="SequenceFlow_13gjskh">
+        <di:waypoint x="228" y="296" />
+        <di:waypoint x="352" y="296" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_02b5tpy_di" bpmnElement="SequenceFlow_02b5tpy">
+        <di:waypoint x="452" y="296" />
+        <di:waypoint x="592" y="296" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_150lyz3_di" bpmnElement="getMeteo">
+        <dc:Bounds x="592" y="256" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_07czdm1_di" bpmnElement="SequenceFlow_07czdm1">
+        <di:waypoint x="692" y="296" />
+        <di:waypoint x="832" y="296" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_0apybg8_di" bpmnElement="sendMeteo">
+        <dc:Bounds x="832" y="256" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1i8y6w1_di" bpmnElement="EndEvent_1i8y6w1">
+        <dc:Bounds x="1072" y="278" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1y6abmg_di" bpmnElement="getInfosUT">
+        <dc:Bounds x="352" y="256" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0tk6gso_di" bpmnElement="SequenceFlow_0tk6gso">
+        <di:waypoint x="932" y="296" />
+        <di:waypoint x="1072" y="296" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
