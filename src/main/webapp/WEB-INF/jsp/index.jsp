@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Application météo ${pid}</title>
+    <title>Application météo</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
 
@@ -23,7 +23,8 @@
 <div class="form-group margin-top-20">
     <label for="cp">Code Postal</label>
     <input class="form-control" id="cp" value="73000">
-    <button class="btn btn-primary" onclick="meteoRequest(${pid})">Récupérer la météo</button>
+
+    <button class="btn btn-primary" onclick="meteoRequest('${pid}')">Récupérer la météo</button>
 </div>
 
 <div id="meteo-answer">
